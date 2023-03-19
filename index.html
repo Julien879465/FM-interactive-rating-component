@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+  <title>Frontend Mentor | Interactive rating component</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style>
+</head>
+<body>
+
+  <!-- Rating state start -->
+<div class="card-one">
+  <div class="round-img">
+  <img class="star" src="./images/icon-star.svg" alt="">
+  </div>
+  <h1>How did we do?</h1>
+<p>
+  Please let us know how we did with your support request. All feedback is appreciated 
+  to help us improve our offering!
+</p>
+
+<div class="buttons">
+  <button class="rate-button" value="1">1</button>
+  <button class="rate-button" value="2">2</button>
+  <button class="rate-button" value="3">3</button>
+  <button class="rate-button" value="4">4</button>
+  <button class="rate-button" value="5">5</button>
+</div>
+  <button class="submit-button">Submit</button>
+  
+</div>
+  <!-- Rating state end -->
+
+  <!-- Thank you state start -->
+<div class="card-two">
+  <img class="thank-you-img" src="./images/illustration-thank-you.svg" alt="">
+  <div class="selected-rating"><p id="rate">You did not select a rate</p></div> 
+
+  <h1>Thank you!</h1>
+
+  <p>We appreciate you taking the time to give a rating. If you ever need more support,
+  don’t hesitate to get in touch!</p> 
+</div>
+<script>
+  let selectedRating = '?';
+  let selectedCard = 0;
+  
+  const cardOne = document.querySelector('.card-one');
+  const cardTwo = document.querySelector('.card-two');
+  const submitButton = document.querySelector('.submit-button');
+
+  const buttons = document.querySelectorAll('.rate-button');
+  const selectedRatingElement = document.getElementById('rate');
+
+  function showSelectedCard() {
+      if (selectedCard === 0) {
+        cardOne.style.display = 'flex';
+        cardTwo.style.display = 'none';
+      } else {
+        cardOne.style.display = 'none';
+        cardTwo.style.display = 'flex';
+      }
+    }
+    submitButton.addEventListener('click', () => {
+      selectedCard === 0 ? selectedCard = 1 : selectedCard = 0;
+        showSelectedCard();
+      });
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      buttons.forEach(btn => btn.classList.remove('selected'));
+      button.classList.add('selected');
+
+      selectedRating = button.getAttribute('value');
+
+      selectedRatingElement.textContent = `You selected ${selectedRating} out of 5 `;
+      console.log(selectedRating)
+    });
+  });
+  showSelectedCard()
+</script>
+
+</body>
+</html>
